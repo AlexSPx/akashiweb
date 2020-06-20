@@ -2,6 +2,10 @@ const Sequelize = require('sequelize')
 
 const Model = Sequelize.Model;
 
+const sequelize = new Sequelize('postgres://akashiapi:&hZ-]62NN4KstU}N@51.15.107.70:5432/akashitest', {
+    dialect: 'postgres'
+})
+
 class Chapter extends Model {}
 Chapter.init({
     id: { type: Sequelize.INTEGER, autoIncrement: true , primaryKey: true },
@@ -26,7 +30,7 @@ Chapter.init({
     redrawer_id: Sequelize.INTEGER,
     proofreader_id: Sequelize.INTEGER,
     project_id: Sequelize.INTEGER
-}, { sequelize, modelName: 'chapters' });
+}, { sequelize, tableName: 'chapters' , timestamps:false});
 
 class Staff extends Model {}
 Staff.init({
@@ -34,7 +38,7 @@ Staff.init({
     name: Sequelize.STRING,
     discord_id: Sequelize.BIGINT,
     status: Sequelize.STRING
-});
+}, {sequelize, tableName: 'staff' , timestamps:false});
 
 class Project extends Model {}
 Project.init({
@@ -51,43 +55,101 @@ Project.init({
     icon: Sequelize.STRING,
     position: Sequelize.INTEGER,
     color: Sequelize.STRING
-}, { sequelize, modelName: 'projects' });
+}, { sequelize, tableName: 'projects' , timestamps:false});
 
 
 Chapter.belongsTo(Staff, {
     foreignKey: {
+        as: 'tl',
         name: 'translator_id'
     }
 });
 
 Chapter.belongsTo(Staff, {
     foreignKey: {
-        name: 'typesetter_id'
+        as: 'ts',
+        name: 'id'
     }
 });
 
 Chapter.belongsTo(Staff, {
     foreignKey: {
-        name: 'redrawer_id'
+        as: 'rd',
+        name: 'id'
     }
 });
 
 Chapter.belongsTo(Staff, {
     foreignKey: {
-        name: 'proofreader_id'
+        as: 'pr',
+        name: 'id'
     }
 });
 
 Staff.hasMany(Chapter, {
     foreignKey: {
-        name: 'id'
+        name: 'id',
+        as: 'tl'
+    }
+});
+
+Staff.hasMany(Chapter, {
+    foreignKey: {
+        name: 'redrawer_id',
+        as: 'b'
+    }
+});
+
+Staff.hasMany(Chapter, {
+    foreignKey: {
+        name: 'proofreader_id',
+        as: 'c'
+    }
+});
+
+Staff.hasMany(Chapter, {
+    foreignKey: {
+        name: 'typesetter_id',
+        as: 'd'
     }
 });
 
 Chapter.belongsTo(Project, {
-    foreignKey: 'project_id'
+    foreignKey: 'project_id',
+    as: 'Project'
 })
 
 Project.hasMany(Chapter, {
-    foreignKey: 'id'
+    foreignKey: 'id',
+    as: 'Chapters'
 })
+
+try {
+    sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+}
+
+
+
+
+async function fetchChapter() {
+    const chapter = await Chapter.findOne({
+        where: {
+            id: 59
+        },
+        include: [{
+            model: Project,
+            as: 'Project'
+        },
+        {
+            model: Staff,
+            as: 'tl'}
+        ]
+
+        });
+    console.log(chapter.Typesetter.name);
+}
+
+fetchChapter()
