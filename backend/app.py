@@ -92,6 +92,11 @@ def get_projects_open():
     ch = Project.query.all()
     return jsonify([p.serialize for p in ch]), 200
 
+@app.route('/api/open/chapters', methods=['GET'])
+def get_chapters_open():
+    ch = Chapter.query.all()
+    return jsonify([p.serialize for p in ch]), 200
+
 def assign_access_refresh_tokens(user_id, url):
     access_token = create_access_token(identity=str(user_id))
     refresh_token = create_refresh_token(identity=str(user_id))
