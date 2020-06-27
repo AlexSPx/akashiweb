@@ -3,7 +3,7 @@ let titleContainer = document.getElementById('list');
 document.addEventListener('DOMContentLoaded', laodText);    
 
 function laodText() {
-    request.open('GET', 'http://akashi.lukesaltweather.de/api/open/projects', true);
+    request.open('GET', 'https://akashi.lukesaltweather.de/api/open/projects', true);
 
     request.onload = function () {
         var data = JSON.parse(request.responseText);
