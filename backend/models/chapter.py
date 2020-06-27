@@ -50,9 +50,22 @@ class Chapter(db.Model):
             'title': self.title,
             'number': self.number,
             'notes': self.notes,
-            'typesetter': self.typesetter.serialize,
-            'redrawer': self.redrawer.serialize,
-            'proofreader': self.proofreader.serialize,
-            'translator': self.translator.serialize,
+            'typesetter': self.typesetter.serialize if self.typesetter else None,
+            'redrawer': self.redrawer.serialize if self.redrawer else None,
+            'proofreader': self.proofreader.serialize if self.proofreader else None,
+            'translator': self.translator.serialize if self.translator else None,
             'project': self.project.serialize
+        }
+
+    @property
+    def serializeProject(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'number': self.number,
+            'notes': self.notes,
+            'typesetter': self.typesetter.serialize if self.typesetter else None,
+            'redrawer': self.redrawer.serialize if self.redrawer else None,
+            'proofreader': self.proofreader.serialize if self.proofreader else None,
+            'translator': self.translator.serialize if self.translator else None
         }

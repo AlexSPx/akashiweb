@@ -14,6 +14,7 @@ from flask_jwt_extended import (JWTManager, jwt_required,
                                 unset_jwt_cookies,unset_access_cookies)
 import json
 from flask_cors import CORS
+# from flask_restful import *
 
 dotenv.load_dotenv()
 app = Flask(__name__)
@@ -92,10 +93,20 @@ def get_projects_open():
     ch = Project.query.all()
     return jsonify([p.serialize for p in ch]), 200
 
+@app.route('/api/open/projects/<p_id>/chapters', methods=['GET'])
+def get_pchapters_open(p_id):
+    chapters = Chapter.query.filter(Chapter.project_id == int(p_id)).all()
+    return jsonify([p.serializeProject for p in chapters]), 200
+
 @app.route('/api/open/chapters', methods=['GET'])
 def get_chapters_open():
     ch = Chapter.query.all()
     return jsonify([p.serialize for p in ch]), 200
+
+@app.route('/api/open/chapters/<c_id>', methods=['GET'])
+def get_chapter_open(c_id):
+    ch = Chapter.query.filter(Chapter.id == int(c_id)).first()
+    return jsonify(ch), 200
 
 def assign_access_refresh_tokens(user_id, url):
     access_token = create_access_token(identity=str(user_id))

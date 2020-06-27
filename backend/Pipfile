@@ -17,6 +17,7 @@ uwsgi = "*"
 pyjwt = "*"
 flask-jwt-extended = "*"
 flask-cors = "*"
+flask-restful = "*"
 
 [requires]
 python_version = "3.8"
