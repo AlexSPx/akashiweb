@@ -1,6 +1,9 @@
 from flask import Flask, redirect, make_response, jsonify, request, session
 from requests_oauthlib import OAuth2Session
-from models import *
+from models.chapter import Chapter
+from models.project import Project
+from models.staff import Staff
+from models.share import db
 import jwt
 import datetime
 import dotenv
@@ -47,14 +50,14 @@ def invalid_token_callback(callback):
     # Invalid Fresh/Non-Fresh Access token in auth header
     resp = make_response(redirect(app.config['BASE_URL'] + '/api/login'))
     unset_jwt_cookies(resp)
-    return resp, 302
+    return resp, 403
 
 @jwt.expired_token_loader
 def expired_token_callback(callback):
     # Expired auth header
     resp = make_response(redirect(app.config['BASE_URL'] + '/api/reload'))
     unset_access_cookies(resp)
-    return resp, 302
+    return resp, 403
 
 @app.route('/api')
 def logim():
@@ -74,8 +77,11 @@ def cb1():
     discord = OAuth2Session(client_id, state=session['oauth_state'], redirect_uri='https://akashi.nekyou.com/api/callback')
     token = discord.fetch_token(token_url, client_secret=client_secret,
                                authorization_response=request.url)
-
-    return jsonify(discord.get('https://discord.com/api/users/@me').json())
+    id = discord.get('https://discord.com/api/users/@me').json()['id']
+    user = Staff.query.filter(Staff.discord_id == id).first()
+    if not user:
+        return redirect('https://http.cat/302.jpeg', 403)
+    return assign_access_refresh_tokens(id, 'http://akashi.nekyou.com/html/projects')
 
 @app.route('/api/callback/<name>')
 def cb(name):
