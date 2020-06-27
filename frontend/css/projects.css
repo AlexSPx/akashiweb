@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+@font-face {
+    font-family: 'Helvetica-Thin';
+    src: url(fonts/Helvetica-Thin.woff);
+    font-style: normal;
+    font-weight: 300;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(90deg, wheat 27.3px, transparent 1%) center, linear-gradient(wheat 27.3px, transparent 1%) center, #a799cc;
+    background-size: 22px 22px;
+    zoom: 135%;
+}
+
+.title {
+    font-family: 'Amatic SC', cursive;
+    text-align: center;
+    font-size: 5em;
+    line-height: 0px;
+    margin-bottom: 0.5em;
+}
+
+.projects {
+    font-family: 'Helvetica-Thin';
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+form {
+    font-family: 'Helvetica-Thin';
+    padding-inline-start: 0px;
+    list-style: none;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+}
+
+button {
+    font-family: 'Helvetica-Thin', Arial;
+    font-size: 0.7em;
+    color: white;
+    background-color: #222;
+    border: none;
+    width: 20em;
+    padding: 0.3em 0;
+    text-decoration: none;
+    display: inline-block;
+}
+
+li {
+    margin-bottom: 0.5em;
+    
+}
+
+
+button:hover {
+    background-color: #544D4C;
+}

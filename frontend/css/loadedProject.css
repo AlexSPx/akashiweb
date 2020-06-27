@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+@font-face {
+    font-family: 'Helvetica-Thin';
+    src: url(fonts/Helvetica-Thin.woff);
+    font-style: normal;
+    font-weight: 300;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    background: linear-gradient(90deg, wheat 27.3px, transparent 1%) center, linear-gradient(wheat 27.3px, transparent 1%) center, #a799cc;
+    background-size: 22px 22px;
+    zoom: 135%;
+}
+
+.layer {
+    background-color: #222222;
+    position: absolute;
+    font-family: 'Helvetica-Thin', Arial;
+    left: 5%;
+    width: 90%;
+    height: 80%;
+}
+
+.chapterTitle {
+    color: white;
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+}
+
+.title {
+    font-family: 'Amatic SC', cursive;
+    text-align: center;
+    font-size: 5em;
+    line-height: 0px;
+    margin-bottom: 0.5em;
+}
+
+img {
+    position: absolute;
+    background-color: tomato;
+    margin-left: 2%;
+    margin-bottom: 2%;
+    width: 38%;
+    height: 85%;
+}
+
+form {
+    position: relative;
+    left: 18%;
+    text-align: center;
+}
