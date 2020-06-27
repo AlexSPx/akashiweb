@@ -17,10 +17,11 @@ from flask_jwt_extended import (JWTManager, jwt_required,
                                 unset_jwt_cookies,unset_access_cookies)
 import json
 from flask_cors import CORS
-# from flask_restful import *
+# from flask_restful import Resource, api
 
 dotenv.load_dotenv()
 app = Flask(__name__)
+# api = Api(app)
 
 client_id = "591320769460436992"
 client_secret = "HN93yn7Yrmghvrls2eSL0fFg8r-bAaX_"
