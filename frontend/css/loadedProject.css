@@ -8,11 +8,11 @@
 }
 
 body {
-    margin: 0;
+    margin-top: 20%;
+    transform: scale(1.35);
     height: 100%;
-    background: linear-gradient(90deg, wheat 27.3px, transparent 1%) center, linear-gradient(wheat 27.3px, transparent 1%) center, #a799cc;
-    background-size: 22px 22px;
-    zoom: 135%;
+    background: linear-gradient(90deg, wheat 21px, transparent 1%) center, linear-gradient(wheat 21px, transparent 1%) center, #a799cc;
+    background-size: 23px 23px;
 }
 
 .layer {
