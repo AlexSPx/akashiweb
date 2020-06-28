@@ -9,6 +9,7 @@ function getCookie(name) {
 
 const cookieID = getCookie("id")
 
+
 function getChapterID(data) {
     for(i = 0; i < data.length; i++){
         if(data[i].title == cookieID){
@@ -19,14 +20,15 @@ function getChapterID(data) {
 }
 
 function loadPage() {
-    request.open('GET', 'https://akashi.lukesaltweather.de/api/open/projects', true)
+    request.open('GET', 'https://akashi.nekyou.com/api/open/projects', true)
     
     request.onload = function() {
         var data = JSON.parse(request.responseText);
-        getChapterID(data);        
         const id = getChapterID(data);
+        //document.cookie = `cID=${id}`;
         setTitle();
         setThumbnail(data, id);
+        loadChapters(id); 
     }
     request.send();
 }
@@ -41,5 +43,22 @@ function setThumbnail(data, id) {
             document.getElementById("thumbnail").insertAdjacentHTML('beforeend', 
             `<img src="${data[i].thumbnail}" alt="#">`); 
         }
+    }
+}
+
+function loadChapters(id) {
+    request.open(`GET`, `https://akashi.nekyou.com/api/open/projects/${id}/chapters`);
+        request.onload = function() {
+            var chapters = JSON.parse(request.responseText);
+            printChapters(chapters);
+        }
+        request.send();
+}
+
+function printChapters(chapters) {
+    for(i = 0; i < chapters.length; i++){
+        let content = `Chapter ${chapters[i].number}`;
+        document.getElementById(`buttons`).
+        insertAdjacentHTML(`beforeend` ,`<button>${content}</button><br>`);
     }
 }

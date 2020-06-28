@@ -8,14 +8,13 @@
 }
 
 body {
-    margin-top: 20%;
-    transform: scale(1.35);
     height: 100%;
     background: linear-gradient(90deg, wheat 21px, transparent 1%) center, linear-gradient(wheat 21px, transparent 1%) center, #a799cc;
     background-size: 23px 23px;
 }
 
 .layer {
+    margin-top: 0;
     background-color: #222222;
     position: absolute;
     font-family: 'Helvetica-Thin', Arial;
@@ -51,7 +50,18 @@ img {
 }
 
 form {
+    top: 1em;
     position: relative;
-    left: 18%;
+    left: 20%;
     text-align: center;
+}
+
+button {
+    border: none;    
+    padding: 0.6em 5em;
+    margin-bottom: 3em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+
 }
